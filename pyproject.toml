@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deepreact"
+version = "1.0.0"
+description = "Autonomous training of reactive deep learning potentials"
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml>=6.0",
+]
+license = {text = "MIT"}
+authors = [
+    {name = "DeepReact Developers"}
+]
+
+[project.scripts]
+deepreact = "deepreact.main:main"
+
+[tool.setuptools.packages.find]
+include = ["deepreact*"]

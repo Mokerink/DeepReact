@@ -1,0 +1,55 @@
+project:
+    name: methane
+    workdir: ./project
+
+lammps:
+    executable: lmp_mpi
+    input: ./example.lmp
+    output: ./example.lammpstrj
+    bonds: ./example.bonds.out
+
+mddatasetbuilder:
+    trajectory: ./example.lammpstrj
+    bonds: ./example.bonds.out
+    output: ./gaussian
+    atoms: "C H O"
+    name: data
+    cutoff: 2.0
+    stride: 10
+    nprocjob: 64
+    keywords: "force b3lyp/3-21G* Geom=PrintInputOrient"
+    gjf_inject: "%mem=128GB"
+
+gaussian:
+    mode: export #or run
+    executable: g16
+    input_dir: ./gaussian
+    output_dir: ./gaussian/log
+
+split:
+    train_ratio: 0.7
+    val_ratio: 0.2
+    seed: 42
+
+scripts:
+    check: ""       
+    dpdata: ""
+    split: "" 
+
+deepmd:
+    executable: dp
+    train: train.json
+
+active_learning:
+    enabled: false #or true
+    iterations: 1
+    lammps_input: ./example_dp.lmp
+    trajectory_output: ./example_dp.lammpstrj
+    dpdata_output: ./deepmd_data_al
+    dptest_model: graph.pb
+    dptest_system: ./deepmd_data_al
+    dptest_output: ./dptest_out
+    energy_rmse_threshold: 0.01
+    force_rmse_threshold: 0.1
+    train_json: ./train.json
+    checkpoint: ./model.ckpt
