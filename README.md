@@ -27,10 +27,6 @@ The current workflow consists of training deep learning potentials and an option
 
 ## Core Pipeline
 
-<p align="left">
-  <img src="./deepreact/workflow.png" width="1000">
-</p>
-
     Reactive MD (LAMMPS)
             │
             ▼
